@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -186,6 +187,26 @@ public class SparkServiceBaseImpl implements SparkService {
 			e.printStackTrace();
 			throw new SparkIoException(e);
 		}
+	}
+
+	public InputStream getEventStream(SparkDevice device, String event) throws SparkIoException {
+		try {
+			URL url = new URL(devicesUrl+"/"+device.getId()+"/events/"+event);
+			
+			URLConnection conne = url.openConnection();
+			String token = jsonToken.getString("access_token");
+			conne.setRequestProperty("Authorization", "Bearer "+token);
+			return conne.getInputStream();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new SparkIoException(e);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new SparkIoException(e);
+		}
+		
 	}
 
 }

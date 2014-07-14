@@ -1,5 +1,6 @@
 package sparky.api;
 
+import java.io.InputStream;
 import java.util.List;
 
 import sparky.SparkDevice;
@@ -12,5 +13,6 @@ public interface SparkService {
 	public String getToken(String username,String password) throws SparkIoException;
 	public String getVariable(SparkDevice device,String varName) throws SparkIoException;
 	public String callFunction(SparkDevice device,String functionName,Object...args) throws SparkIoException;
+	public InputStream getEventStream(SparkDevice device,String event) throws SparkIoException; 
 }
 

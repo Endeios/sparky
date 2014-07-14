@@ -3,6 +3,7 @@ package sparky;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -17,7 +18,7 @@ import sparky.impl.SparkServiceBaseImpl;
 public class TestService {
 
 	@Test
-	public void test() throws SparkIoException, InterruptedException {
+	public void test() throws SparkIoException, InterruptedException, IOException {
 		SparkService service = new SparkServiceBaseImpl("endeios@gmail.com", "Passwd");
 		List<SparkDevice> myDevices = service.getDevices();
 		for (SparkDevice sparkDevice : myDevices) {
@@ -30,7 +31,7 @@ public class TestService {
 				String varVal = service.getVariable(sparkDevice, varName);
 				System.out.println(varName+"="+varVal);
 			}
-			
+			/*
 			System.out.println(service.callFunction(sparkDevice, "alarm", "A"));
 			Thread.sleep(1000);
 			System.out.println(service.callFunction(sparkDevice, "alarm", "S"));
@@ -43,7 +44,12 @@ public class TestService {
 			Thread.sleep(1000);
 			System.out.println(service.callFunction(sparkDevice, "alarm", "S"));
 			Thread.sleep(1000);
-			
+			*/
+			InputStream es = service.getEventStream(sparkDevice, "status");
+			char c = 0;
+			while((c=(char) es.read())!=0){
+				System.out.print(c);
+			};
 		}
 				
 		
