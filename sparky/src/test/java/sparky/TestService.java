@@ -19,7 +19,7 @@ public class TestService {
 
 	@Test
 	public void test() throws SparkIoException, InterruptedException, IOException {
-		SparkService service = new SparkServiceBaseImpl("endeios@gmail.com", "Passwd");
+		SparkService service = new SparkServiceBaseImpl("endeios@gmail.com", "Passwrd");
 		List<SparkDevice> myDevices = service.getDevices();
 		for (SparkDevice sparkDevice : myDevices) {
 			System.out.println("\t"+sparkDevice);
